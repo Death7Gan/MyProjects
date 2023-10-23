@@ -1,0 +1,79 @@
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+const char N = '\n';
+
+template<typename T, typename T1, typename T2>
+void FillArray(const T rows, const T1 cols, T2 arr[])
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols;)
+		{
+			bool a = true;
+			int newrandom = rand()%1000;
+			for (int z = 0; z < rows; z++)
+			{
+				for (int x = 0; x < cols; x++)
+				{
+					if (arr[z][x]==newrandom)
+					{
+						a = false;
+						break;
+					}
+ 				}
+			}
+			if (a)
+			{
+				arr[i][j] = newrandom;
+				j++;
+			}
+
+		}
+	}
+}
+template<typename T, typename T1, typename T2>
+void PrintArray(const T rows, const T1 cols, T2 arr[])
+{
+	for (int i = 0; i < rows; i++)
+	{
+		cout << arr[i] << "\t";
+		for (int j = 0; j < cols; j++)
+		{
+			cout << arr[i][j] << "\t";
+		}
+		cout << N;
+	}
+}
+template<typename T, typename T1>
+void DellArray(const T rows, const T1 arr[])
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] arr[i];
+	}
+	delete[] arr;
+
+}
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	srand(time(NULL));
+	int rows;
+  cout<<"Введите кол-во строк в масиве"<<N;
+	cin >> rows;
+	int cols;
+  cout<<"Введите кол-во колонок в масиве"<<N;
+	cin >> cols;
+	int **arr=new int*[rows];
+
+	for (int i = 0; i < rows; i++)
+	{
+		arr[i] = new int[cols] {};
+	}
+	
+	FillArray(rows,cols, arr);
+	PrintArray(rows, cols, arr);
+	DellArray(rows, arr);
+}
